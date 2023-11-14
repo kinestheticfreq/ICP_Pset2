@@ -1,0 +1,249 @@
+# Problem 1(a)
+def findNumRepeats(X):
+    if not X:
+        return 0  # In case of an empty string
+
+    repeats = {} 
+
+    for char in X:
+        if char in repeats.keys():
+            repeats[char] += 1
+        else:
+            repeats[char] = 0
+    sum = 0
+    for key in repeats.keys():
+        sum += repeats[key]
+    return sum
+
+# Example cases
+print(findNumRepeats("blahbluh"))  # Output: 3
+print(findNumRepeats("abcabcabd"))  # Output: 5
+
+
+############################################################################################
+
+# Problem 1(b)
+def giveKList(X, k):
+    if not X or k <= 0:
+        return []  # This returns an empty list for invalid inputs
+
+    return X[k - 1::k]
+
+# Example
+X = [1, 2, 3, 4, 5]
+k = 2
+result = giveKList(X, k)
+print(result)  # Output: [2, 4]
+
+############################################################################################
+
+# Problem 1(c)
+def convertBase(val, k):
+    if val < 0 or k <= 1 or k >= 10:
+        return "Invalid input"
+
+    result = ""
+    while val > 0:
+        remainder = val % k
+        result = str(remainder) + result
+        val //= k
+
+    return int(result) if result else 0
+
+# Example
+val = 15
+k = 2
+result = convertBase(val, k)
+print(result)  # Output: 1111
+
+############################################################################################
+
+# Problem 1(d)
+import random
+
+def tossCoins(t, p):
+    if not (0 <= p <= 1):
+        return "Invalid probability"
+
+    result = ['H' if random.random() < p else 'T' for _ in range(t)]
+    return result
+
+# Take user input for the number of coin tosses
+try:
+    toss_count = int(input("Enter the number of coin tosses: "))
+    if toss_count < 0:
+        raise ValueError("Number of coin tosses cannot be negative.")
+except ValueError as e:
+    print(f"Invalid input: {e}")
+    exit()
+
+# Take user input for the probability of getting heads
+try:
+    probability_heads = float(input("Enter the probability of getting heads (0 to 1): "))
+except ValueError:
+    print("Invalid input. Please enter a valid float.")
+    exit()
+
+result_list = tossCoins(toss_count, probability_heads)
+print(result_list)
+
+############################################################################################
+
+# Problem 1(e)
+def printArr(A, B):
+    result = []
+
+    # This determines the length of the shorter list
+    min_length = min(len(A), len(B))
+
+    # This combines the lists, alternating between elements
+    for i in range(min_length):
+        result.append(A[i])
+        result.append(B[i])
+
+    # This adds any remaining elements from the longer list
+    result.extend(A[min_length:])
+    result.extend(B[min_length:])
+
+    return result
+
+# Use case
+A = [1, 2, 3, 4, 5, 6] # Can be taken as user input
+B = [100, 200, 300] # Can be taken as user input
+output = printArr(A, B)
+print(output)
+
+
+############################################################################################
+
+# Problem 1(f)
+def printMany(x, k):
+    if k <= 0:
+        return "Invalid value for k"
+
+    # This convert x to a string to handle the negative sign separately
+    x_str = str(x)
+
+    # This removes the sign and the absolute value
+    sign = "" if x_str[0] == '-' else "+"
+    abs_value = x_str[1:] if x_str[0] == '-' else x_str
+
+    # This multiplies the absolute value by k and concatenate with the sign
+    result = sign + abs_value * k
+    return result
+
+# Taking user input for x
+try:
+    x = int(input("Enter the integer x: "))
+except ValueError:
+    print("Invalid input for x. Please enter an integer.")
+    exit()
+
+# Taking user input for k
+try:
+    k = int(input("Enter the value of k: "))
+    if k <= 0:
+        raise ValueError("Invalid value for k. Please enter a positive integer.")
+except ValueError as e:
+    print(f"Invalid input for k: {e}")
+    exit()
+
+# Use case
+output = printMany(x, k)
+print(output)
+
+
+############################################################################################
+
+# Problem 1(g)
+def reverseString():
+    x = input("Enter a string of small letters: ")
+    reversed_x = ""
+    for letter in x:
+        reversed_x = letter + reversed_x
+    return reversed_x
+
+# Use case 
+output_for_loop = reverseString()
+print(output_for_loop)
+
+############################################################################################
+
+# Problem 1(h)
+def reverseSkipNum(x):
+    alphabet_chars = [char for char in x if char.isalpha()]
+    reversed_alphabet_chars = ''.join(alphabet_chars[::-1])
+
+    result = ""
+    i = 0
+    for char in x:
+        if char.isalpha():
+            result += reversed_alphabet_chars[i]
+            i += 1
+        else:
+            result += char
+
+    return result
+
+# Use case
+input_string = "abc123de45fgh"
+output = reverseSkipNum(input_string)
+print(output)  # Desired Output: "cba123ed45hgf"
+
+############################################################################################
+
+# Problem 1(i)
+def harmonicSum(n):
+    if n <= 0:
+        return "Oops, invalid input! Please enter a positive integer."
+
+    sum_result = 0
+    for i in range(1, n + 1):
+        sum_result += 1 / i
+
+    rounded_result = round(sum_result, 5)
+    return rounded_result
+
+# Example usage
+n = int(input("Enter a positive integer: "))
+result = harmonicSum(n)
+print(f"The harmonic sum for n is: {result}")
+
+
+############################################################################################
+
+# Problem 1(j)
+def inverseAdd(x, y):
+    if x <= 0 or y <= 0:
+        return "Oops, invalid input! Please enter positive integers."
+
+    sum_x = sum(1/i for i in range(1, x + 1))
+    sum_y = sum(1/i for i in range(1, y + 1))
+
+    result = sum_x / sum_y
+    rounded_result = round(result, 5)
+    return rounded_result
+
+# Take user input for x
+try:
+    x = int(input("Enter a positive integer: "))
+    if x <= 0:
+        raise ValueError("Dang! Invalid input for x. Please enter a positive integer.")
+except ValueError as e:
+    print(f"Invalid input for x: {e}")
+    exit()
+
+# Take user input for y
+try:
+    y = int(input("Enter a positive integer (y): "))
+    if y <= 0:
+        raise ValueError("Invalid input for y. Please enter a positive integer.")
+except ValueError as e:
+    print(f"Invalid input for y: {e}")
+    exit()
+
+# Calculate and print the rounded result
+rounded_result = inverseAdd(x, y)
+print(f"The answer (rounded to 5 decimal places) is: {rounded_result}")
+
+
